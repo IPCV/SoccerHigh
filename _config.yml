@@ -5,9 +5,9 @@ title: "SoccerHigh: A Benchmark Dataset for Automatic Soccer Video Summarization
 description: "Official website of SoccerHigh: A Benchmark Dataset for Automatic Soccer Video Summarization"
 author: "IMVA"
 
-# ✅ Set these for correct URLs (important for SEO, sitemap, RSS)
-url: "https://ipcv.github.io"   # Change to "https://soccerhigh.com" if you use a custom domain
-baseurl: "/soccerhigh"              # Use "" if using a custom domain
+# ✅ Set these for correct URLs
+url: "https://ipcv.github.io"
+baseurl: "/SoccerHigh"
 
 # ✅ Google Analytics (GA4)
 google_analytics: "G-6B4QC0T094"

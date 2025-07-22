@@ -1,0 +1,68 @@
+<nav style="padding-bottom: 0"
+        class="navbar navbar-expand-xl navbar-light fixed-top navbar-custom {% if page.nav-short %}top-nav-short-permanent{% else %}top-nav-regular{% endif %}">
+
+  {%- if site.title-img -%}
+    <a class="navbar-brand navbar-brand-logo"
+       href="https://www.upf.edu/web/universitat/-/grup-de-recerca-en-processament-d-imatges-i-visio-per-computador"><img alt="{{ site.title }} Logo" src="{{ site.title-img | relative_url}}"/></a>
+  {%- elsif site.title -%}
+    <a class="navbar-brand" style="font-weight: 800; color: #404040"
+       href="https://www.upf.edu/web/universitat/-/grup-de-recerca-en-processament-d-imatges-i-visio-per-computador"> IMVA </a>
+  {%- endif -%}
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="main-navbar">
+    <ul class="navbar-nav ml-auto">
+      {%- for link in site.navbar-links -%}
+        {%- if link[1].first %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ link[0] }}</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {%- for childlink in link[1] -%}
+                {%- for linkparts in childlink %}
+                  {%- if linkparts[0] contains 'Juan' or linkparts[0] contains 'Venkatesh' or linkparts[0] contains 'Gloria'  %}
+                    <a class="dropdown-item" style="float: right; width: 120%"
+                       target="_blank"
+                       href="{{ linkparts[1] | relative_url }}">{{ linkparts[0] }}</a>
+                  {% elsif linkparts[0] contains 'Net' or linkparts[0] contains 'LLCP' or linkparts[0] contains 'weights' %}
+                    <a class="dropdown-item" style="float: right; "
+                       href="{{ linkparts[1] | relative_url }}">{{ linkparts[0] }}</a>
+                  {% else %}
+                    <a class="dropdown-item" href="{{ linkparts[1] | relative_url }}">{{ linkparts[0] }}</a>
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endfor %}
+            </div>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            {%- if link[0]=='GitHub' %}
+              <a class="nav-link" target="_blank" href="{{ link[1] | relative_url }}">{{ link[0] }}</a>
+            {% else %}
+              <a class="nav-link" href="{{ link[1] | relative_url }}">{{ link[0] }}</a>
+            {%- endif -%}
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+
+  {% if site.navbar-extra %}
+    {% for file in site.navbar-extra %}
+      {% include {{ file }} %}
+    {% endfor %}
+  {% endif %}
+
+  {% if site.avatar and page.show-avatar != false %}
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        <a href="{{ '' | absolute_url }}">
+          <img alt="Navigation bar avatar" class="avatar-img" src="{{ site.avatar | relative_url }}" />
+        </a>
+      </div>
+    </div>
+  {% endif %}
+
+</nav>
