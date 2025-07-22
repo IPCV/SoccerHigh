@@ -14,31 +14,61 @@ permalink: /
 
 <div class="col-xl-10 col-lg-8 offset-lg-1">
 
-    <!-- Authors -->
+    <!-- Testimonials -->
     <section class="testimonials text-center">
-    <div class="authors-container">
-        <div class="author">
-        <h3><a href="#" rel="author" style="text-decoration:none;">Artur Díaz Juan</a></h3>
-        </div>
-        <div class="author">
-        <h3><a href="https://www.upf.edu/web/coloma-ballester" rel="author" style="text-decoration:none;">Coloma Ballester</a></h3>
-        </div>
-        <div class="author">
-        <h3><a href="https://www.upf.edu/web/gloria-haro" rel="author" style="text-decoration:none;">Gloria Haro</a></h3>
-        </div>
-    </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 text-center" style="">
+                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                        <h3>
+                            <a href="http://adjuan.github.io/"
+                               style="text-decoration: none;">
+                                Artur Díaz Juan
+                            </a>
+                        </h3>
+                        <p class="font-weight-light mb-0"></p>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <div class="testimonial-item mx-auto mb-5 mb-lg-0" style="width: 109%">
+                        <h3>
+                            &nbsp;
+                            <a href="https://www.upf.edu/web/coloma-ballester"
+                               style="text-decoration: none;">
+                                Coloma Ballester
+                            </a>
+                        </h3>
+                        <p class="font-weight-light mb-0"></p>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                        <h3>
+                            <a href="https://www.upf.edu/web/gloria-haro"
+                               style="text-decoration: none;">
+                                Gloria Haro
+                            </a>
+                        </h3>
+                        <p class="font-weight-light mb-0"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="offset-lg-3 col-lg-6 padtop" style="padding-bottom: 2rem">
+          <span class="align-middle">
+            <p class="mylead2">
+                <a href="https://www.upf.edu/web/etic" style="color:black">Universitat Pompeu Fabra,<br>Barcelona, Spain</a><br>
+                <h5 class="mx-auto text-center" style="color: black">Under Review</h5>
+                <h4 class="mx-auto text-center">
+                   <a target="_blank" href="#">[Paper]</a> &nbsp;&nbsp;&nbsp;&nbsp;
+                   <a target="_blank" href="https://github.com/IPCV/SoccerHigh">[Code]</a> 	&nbsp;&nbsp;&nbsp;&nbsp;
+                   <a href="#">[Data]</a>
+                </h4>
+          </span>
+            </div>
 
-    <div class="text-center" style="margin-top: 2rem;">
-        <p class="mylead2">
-        <a href="https://www.upf.edu/web/etic" style="color:black">Universitat Pompeu Fabra,<br>Barcelona, Spain</a>
-        </p>
-        <h5 style="color: black;">In review</h5>
-        <h4>
-        <a target="_blank" href="#" style="text-decoration:none;">[Paper]</a>&nbsp;&nbsp;&nbsp;
-        <a target="_blank" href="https://github.com/IPCV/SoccerHigh" style="text-decoration:none;">[Code]</a>&nbsp;&nbsp;&nbsp;
-        <a href="{{ '/data/' | relative_url }}" style="text-decoration:none;">[Data]</a>
-        </h4>
-    </div>
+            </div>
+        </div>        
     </section>
 
 
@@ -53,7 +83,7 @@ permalink: /
 
     <!-- Abstract -->
     <section>
-    <h2>Abstract</h2>
+    <!-- <h2>Abstract</h2> -->
     <p class="lead" style="text-align: justify;">
         Video summarization aims to extract key shots from longer videos to produce concise and informative summaries. One of its most common applications is in sports, where highlight reels capture the most important moments of a game, along with notable reactions and specific contextual events. Automatic summary generation can support video editors in the sports media industry by reducing the time and effort required to identify key segments. However, the lack of publicly available datasets poses a challenge in developing robust models for sports highlight generation.
         In this paper, we address this gap by introducing a curated dataset for soccer video summarization, designed to serve as a benchmark for the task. The dataset includes shot boundaries for 237 matches from the Spanish, French, and Italian leagues, using broadcast footage sourced from the SoccerNet dataset. Alongside the dataset, we propose a baseline model specifically designed for this task, which achieves an F1 score of 0.3956 in the test set. Furthermore, we propose a new metric constrained by the length of each target summary, enabling a more objective evaluation of the generated content.
