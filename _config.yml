@@ -1,0 +1,112 @@
+# ================================
+# ✅ SITE SETTINGS
+# ================================
+title: "SoccerHigh: A Benchmark Dataset for Automatic Soccer Video Summarization"
+description: "Official website of SoccerHigh: A Benchmark Dataset for Automatic Soccer Video Summarization"
+author: "IMVA"
+
+# ✅ Set these for correct URLs (important for SEO, sitemap, RSS)
+url: "https://ipcv.github.io"   # Change to "https://soccerhigh.com" if you use a custom domain
+baseurl: "/soccerhigh"              # Use "" if using a custom domain
+
+# ✅ Google Analytics (GA4)
+google_analytics: "G-6B4QC0T094"
+
+# ================================
+# ✅ NAVIGATION
+# ================================
+navbar-links:
+  Project: "/"
+  Data: "/data"
+  About us:
+    - Artur Díaz: "http://adjuan.github.io/"
+    - Coloma Ballester: "https://www.upf.edu/web/coloma-ballester"
+    - Gloria Haro: "https://www.upf.edu/web/gloria-haro"
+
+# Logo & Avatar
+title-img: "/assets/img/imva_logo.svg"
+round-avatar: true
+
+# ================================
+# ✅ APPEARANCE
+# ================================
+navbar-col: "#EAEAEA"
+navbar-text-col: "#404040"
+navbar-border-col: "#DDDDDD"
+page-col: "#FFFFFF"
+text-col: "#404040"
+link-col: "#008AFF"
+hover-col: "#0085A1"
+footer-col: "#EAEAEA"
+footer-text-col: "#777777"
+footer-link-col: "#404040"
+
+# Custom CSS (make sure these files exist)
+site-css:
+  - "/assets/vendor/font-awesome/css/mystyles.css"
+  - "/assets/vendor/simple-line-iconscss/simple-line-icons.css"
+  - "/assets/vendor/bootstrap/css/bootstrap.min.css"
+  - "/assets/font-awesome/css/font-awesome.min.css"
+  - "/assets/css/landing-page.min.css"
+  - "https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic"
+
+# ================================
+# ✅ BLOG & CONTENT
+# ================================
+markdown: kramdown
+highlighter: rouge
+permalink: /:year-:month-:day-:title/
+paginate: 5
+excerpt_length: 50
+feed_show_excerpt: true
+feed_show_tags: true
+
+kramdown:
+  input: GFM
+
+# Date & Time
+timezone: "America/Toronto"
+date_format: "%B %-d, %Y"
+
+# ================================
+# ✅ DEFAULTS
+# ================================
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      comments: true
+      social-share: true
+  - scope:
+      path: ""
+    values:
+      layout: "page"
+
+# ================================
+# ✅ PLUGINS (GitHub Pages-compatible)
+# ================================
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# ================================
+# ✅ EXCLUSIONS
+# ================================
+exclude:
+  - CHANGELOG.md
+  - CNAME
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - README.md
+  - screenshot.png
+  - docs/
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/

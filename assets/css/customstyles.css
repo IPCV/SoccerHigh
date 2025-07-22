@@ -1,0 +1,116 @@
+.mycol {
+    flex: 14%;
+    width: 50%;
+    height: 100%;
+    padding-bottom: 0%;
+}
+
+.mycol img {
+    width: 100%;
+    height: 200%;
+    display: block;
+    max-width: 100%;
+}
+
+.col-xs-3.excol3{
+    padding-right:15px;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+}
+
+.spec {
+    width: 97%;
+    height: 15em;
+}
+
+.src2audio{
+    width: 200px;
+}
+
+
+.src4mixaudio{
+    width: 60%;
+    transform: scale(0.8,0.9);
+}
+
+
+.src4audio{
+    width: 200px;
+    padding-left: 20px;
+    transform: scale(0.8,0.9);
+}
+
+.src4_model{
+    padding-left: 55px;
+}
+
+.estimlabel{
+    margin: auto;
+    text-align: center;
+    padding-right: 2%;
+}
+
+.asterix{
+    font-size: 20px;
+    top: -0.2em;
+}
+
+header.masthead {
+  position: relative;
+  /*background-color: gainsboro!important;*/
+    padding-bottom: 0px;
+}
+
+header.masthead .overlay {
+  /*    background-color: gainsboro;*/
+}
+
+.testimonials {
+  padding-top: 0px;
+}
+
+
+.border{
+    border: solid;
+    width: 99%;
+    overflow-x: scroll;
+    margin-left: 1em
+}
+
+.src2_results{
+    padding-left: 10em;
+    padding-bottom: 1em
+}
+
+.src4_results{
+    padding-left: 5em;
+    padding-bottom: 1em
+}
+
+@media (max-width: 600px) {
+    .border{
+        border: solid;
+        width: 90%;
+        overflow-x: scroll;
+        margin-left: 0em
+    }
+
+    .src2_results{
+        padding-left: 0em;
+        padding-bottom: 1em
+    }
+
+    .src4_results{
+        padding-left: 0em;
+        padding-bottom: 1em
+    }
+
+    .mobdisp{
+        margin-bottom: -3em;
+    }
+}
