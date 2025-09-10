@@ -3,7 +3,10 @@
 _site
 _posts
 _docs
+docs
 
 Gemfile.lock
 
-# Main data
+# Code data
+
+__pycache__

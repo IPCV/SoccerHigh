@@ -1,0 +1,22 @@
+dataset: 
+  _target_: datasets.soccernet_games.SoccerNetGames
+  data_dir: data
+  split: null
+  frame_rate: 2
+  tiny: null
+  game_list: data/game_list.txt
+
+backbone: dinov2
+transnet: null
+  # directory: null 
+  # name: null # TranNet weights
+  # threshold: null
+
+checkpoint: null
+  # directory: null
+  # name: null # DINO weights
+
+n_neighbors: 10
+display: False
+intervals_thrsh: 2.5
+overwrite: False

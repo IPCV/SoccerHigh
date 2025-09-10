@@ -1,0 +1,22 @@
+_target_: datasets.soccernet_summarization.SoccerNetSummarization
+_recursive_: True
+data_dir: ${data_dir}
+frame_rate: ${frame_rate}
+split: null
+tiny: null
+game_list: null
+filename: null
+frames_dir: null
+window_size_sec: ${window_size_sec}
+stride: 0
+regression: False
+preload_features:
+  name: videoMAEv2-small
+  filename: LQ_CenterCrop_16frames_VideoMAEv2_SmallFromGiant_K710_384.npy'
+  ndim: 384
+init_file: video.ini
+masked: False
+include_actions: ${include_actions}
+include_cameras: ${include_cameras}
+predict_center: False
+superclass: False
