@@ -1,0 +1,141 @@
+spain_laliga/2015-2016/2015-09-23 - 22-00 Ath Bilbao 1 - 2 Real Madrid
+spain_laliga/2015-2016/2016-01-24 - 22-30 Betis 1 - 1 Real Madrid
+spain_laliga/2015-2016/2015-09-26 - 19-15 Real Madrid 0 - 0 Malaga
+spain_laliga/2015-2016/2016-04-02 - 21-30 Barcelona 1 - 2 Real Madrid
+spain_laliga/2015-2016/2016-03-13 - 22-30 Las Palmas 1 - 2 Real Madrid
+spain_laliga/2015-2016/2015-10-04 - 21-30 Atl. Madrid 1 - 1 Real Madrid
+spain_laliga/2015-2016/2015-08-29 - 21-30 Barcelona 1 - 0 Malaga
+spain_laliga/2015-2016/2016-02-21 - 18-00 Malaga 1 - 1 Real Madrid
+spain_laliga/2015-2016/2016-01-31 - 22-30 Real Madrid 6 - 0 Espanyol
+spain_laliga/2015-2016/2016-04-16 - 17-00 Getafe 1 - 5 Real Madrid
+spain_laliga/2015-2016/2016-03-05 - 18-00 Real Madrid 7 - 1 Celta Vigo
+spain_laliga/2015-2016/2016-04-30 - 17-00 Real Sociedad 0 - 1 Real Madrid
+spain_laliga/2015-2016/2015-11-29 - 18-00 Eibar 0 - 2 Real Madrid
+spain_laliga/2015-2016/2015-09-12 - 17-00 Espanyol 0 - 6 Real Madrid
+spain_laliga/2015-2016/2015-11-21 - 20-15 Real Madrid 0 - 4 Barcelona
+spain_laliga/2015-2016/2016-04-20 - 23-00 Real Madrid 3 - 0 Villarreal
+spain_laliga/2015-2016/2016-02-07 - 22-30 Granada CF 1 - 2 Real Madrid
+spain_laliga/2015-2016/2016-04-09 - 17-00 Real Madrid 4 - 0 Eibar
+spain_laliga/2014-2015/2015-05-17 - 20-00 Espanyol 1 - 4 Real Madrid
+spain_laliga/2014-2015/2015-02-21 - 18-00 Barcelona 0 - 1 Malaga
+spain_laliga/2014-2015/2015-02-22 - 23-00 Elche 0 - 2 Real Madrid
+spain_laliga/2014-2015/2015-05-09 - 21-00 Real Madrid 2 - 2 Valencia
+spain_laliga/2014-2015/2015-05-23 - 19-30 Barcelona 2 - 2 Dep. La Coruna
+spain_laliga/2014-2015/2015-05-17 - 20-00 Atl. Madrid 0 - 1 Barcelona
+spain_laliga/2016-2017/2016-08-27 - 21-15 Real Madrid 2 - 1 Celta Vigo
+spain_laliga/2016-2017/2017-04-15 - 17-15 Gijon 2 - 3 Real Madrid
+spain_laliga/2016-2017/2017-03-01 - 23-30 Real Madrid 3 - 3 Las Palmas
+spain_laliga/2016-2017/2017-04-02 - 21-45 Granada CF 1 - 4 Barcelona
+spain_laliga/2016-2017/2017-05-06 - 21-45 Granada CF 0 - 4 Real Madrid
+spain_laliga/2016-2017/2016-10-29 - 21-45 Barcelona 1 - 0 Granada CF
+spain_laliga/2016-2017/2017-05-17 - 22-00 Celta Vigo 1 - 4 Real Madrid
+spain_laliga/2016-2017/2016-10-22 - 17-15 Valencia 2 - 3 Barcelona
+spain_laliga/2016-2017/2017-01-15 - 22-45 Sevilla 2 - 1 Real Madrid
+spain_laliga/2016-2017/2017-03-18 - 18-15 Ath Bilbao 1 - 2 Real Madrid
+spain_laliga/2016-2017/2017-05-14 - 21-00 Real Madrid 4 - 1 Sevilla
+spain_laliga/2016-2017/2016-12-10 - 22-45 Real Madrid 3 - 2 Dep. La Coruna
+spain_laliga/2016-2017/2017-05-21 - 21-00 Malaga 0 - 2 Real Madrid
+spain_laliga/2016-2017/2016-10-15 - 21-45 Betis 1 - 6 Real Madrid
+spain_laliga/2016-2017/2017-02-26 - 22-45 Villarreal 2 - 3 Real Madrid
+spain_laliga/2016-2017/2017-05-21 - 21-00 Barcelona 4 - 2 Eibar
+spain_laliga/2016-2017/2016-11-19 - 18-15 Barcelona 0 - 0 Malaga
+spain_laliga/2016-2017/2017-02-26 - 18-15 Atl. Madrid 1 - 2 Barcelona
+spain_laliga/2016-2017/2016-12-03 - 18-15 Barcelona 1 - 1 Real Madrid
+spain_laliga/2016-2017/2017-01-14 - 18-15 Barcelona 5 - 0 Las Palmas
+spain_laliga/2016-2017/2016-11-19 - 22-45 Atl. Madrid 0 - 3 Real Madrid
+spain_laliga/2016-2017/2017-04-15 - 21-45 Barcelona 3 - 2 Real Sociedad
+spain_laliga/2016-2017/2017-03-04 - 18-15 Eibar 1 - 4 Real Madrid
+spain_laliga/2016-2017/2016-09-21 - 23-00 Barcelona 1 - 1 Atl. Madrid
+spain_laliga/2016-2017/2017-05-06 - 19-30 Barcelona 4 - 1 Villarreal
+spain_laliga/2016-2017/2017-04-05 - 22-30 Leganes 2 - 4 Real Madrid
+spain_laliga/2016-2017/2017-02-19 - 22-45 Barcelona 2 - 1 Leganes
+spain_laliga/2016-2017/2016-10-29 - 17-15 Alaves 1 - 4 Real Madrid
+spain_laliga/2016-2017/2017-01-29 - 22-45 Real Madrid 3 - 0 Real Sociedad
+spain_laliga/2016-2017/2017-03-12 - 18-15 Dep. La Coruna 2 - 1 Barcelona
+spain_laliga/2016-2017/2016-11-27 - 22-45 Real Sociedad 1 - 1 Barcelona
+spain_laliga/2016-2017/2016-08-28 - 21-15 Ath Bilbao 0 - 1 Barcelona
+spain_laliga/2016-2017/2017-01-08 - 22-45 Villarreal 1 - 1 Barcelona
+spain_laliga/2016-2017/2016-11-06 - 14-00 Real Madrid 3 - 0 Leganes
+spain_laliga/2016-2017/2017-03-01 - 21-30 Barcelona 6 - 1 Gijon
+spain_laliga/2016-2017/2017-01-29 - 14-00 Betis 1 - 1 Barcelona
+spain_laliga/2016-2017/2016-10-02 - 17-15 Real Madrid 1 - 1 Eibar
+spain_laliga/2016-2017/2017-03-19 - 22-45 Barcelona 4 - 2 Valencia
+spain_laliga/2016-2017/2016-08-20 - 19-15 Barcelona 6 - 2 Betis
+spain_laliga/2016-2017/2016-09-18 - 21-45 Espanyol 0 - 2 Real Madrid
+spain_laliga/2016-2017/2017-04-26 - 22-30 Dep. La Coruna 2 - 6 Real Madrid
+spain_laliga/2016-2017/2017-03-04 - 22-45 Barcelona 5 - 0 Celta Vigo
+france_ligue-1/2015-2016/2015-09-26 - 18-30 Nantes 1 - 4 Paris SG
+france_ligue-1/2015-2016/2015-11-07 - 19-00 Paris SG 5 - 0 Toulouse
+france_ligue-1/2014-2015/2015-04-05 - 22-00 Marseille 2 - 3 Paris SG
+france_ligue-1/2016-2017/2016-11-06 - 22-45 Paris SG 4 - 0 Rennes
+france_ligue-1/2016-2017/2016-09-23 - 21-45 Toulouse 2 - 0 Paris SG
+france_ligue-1/2016-2017/2016-12-21 - 22-50 Paris SG 5 - 0 Lorient
+france_ligue-1/2016-2017/2017-02-26 - 23-00 Marseille 1 - 5 Paris SG
+france_ligue-1/2016-2017/2016-10-01 - 18-00 Paris SG 2 - 0 Bordeaux
+france_ligue-1/2016-2017/2016-12-11 - 22-45 Paris SG 2 - 2 Nice
+france_ligue-1/2016-2017/2016-11-19 - 19-00 Paris SG 2 - 0 Nantes
+france_ligue-1/2016-2017/2017-04-22 - 18-00 Paris SG 2 - 0 Montpellier
+france_ligue-1/2016-2017/2016-10-15 - 18-00 Nancy 1 - 2 Paris SG
+france_ligue-1/2016-2017/2017-05-20 - 22-00 Paris SG 1 - 1 Caen
+france_ligue-1/2016-2017/2017-04-14 - 21-45 Angers 0 - 2 Paris SG
+france_ligue-1/2016-2017/2017-04-30 - 22-00 Nice 3 - 1 Paris SG
+france_ligue-1/2016-2017/2016-08-12 - 21-00 Bastia 0 - 1 Paris SG
+france_ligue-1/2016-2017/2016-12-17 - 19-00 Guingamp 2 - 1 Paris SG
+france_ligue-1/2016-2017/2017-01-21 - 19-00 Nantes 0 - 2 Paris SG
+france_ligue-1/2016-2017/2016-10-28 - 21-45 Lille 0 - 1 Paris SG
+france_ligue-1/2016-2017/2017-05-06 - 18-00 Paris SG 5 - 0 Bastia
+france_ligue-1/2016-2017/2017-04-18 - 19-30 Metz 2 - 3 Paris SG
+france_ligue-1/2016-2017/2017-03-19 - 23-00 Paris SG 2 - 1 Lyon
+france_ligue-1/2016-2017/2016-09-16 - 21-45 Caen 0 - 6 Paris SG
+france_ligue-1/2016-2017/2017-02-10 - 22-45 Bordeaux 0 - 3 Paris SG
+france_ligue-1/2016-2017/2017-02-19 - 23-00 Paris SG 0 - 0 Toulouse
+france_ligue-1/2016-2017/2016-11-27 - 22-45 Lyon 1 - 2 Paris SG
+italy_serie-a/2015-2016/2015-11-22 - 22-45 Inter 4 - 0 Frosinone
+italy_serie-a/2015-2016/2015-11-07 - 22-45 AC Milan 0 - 0 Atalanta
+italy_serie-a/2015-2016/2015-11-01 - 22-45 Lazio 1 - 3 AC Milan
+italy_serie-a/2015-2016/2015-09-20 - 13-30 Chievo 0 - 1 Inter
+italy_serie-a/2014-2015/2015-04-26 - 16-00 Torino 2 - 1 Juventus
+italy_serie-a/2014-2015/2015-02-15 - 14-30 AC Milan 1 - 1 Empoli
+italy_serie-a/2014-2015/2015-04-25 - 21-45 Inter 2 - 1 AS Roma
+italy_serie-a/2014-2015/2015-04-19 - 21-45 Inter 0 - 0 AC Milan
+italy_serie-a/2014-2015/2015-05-03 - 21-45 Napoli 3 - 0 AC Milan
+italy_serie-a/2016-2017/2016-08-28 - 21-45 Cagliari 2 - 2 AS Roma
+italy_serie-a/2016-2017/2016-11-06 - 17-00 Palermo 1 - 2 AC Milan
+italy_serie-a/2016-2017/2016-09-16 - 21-45 Sampdoria 0 - 1 AC Milan
+italy_serie-a/2016-2017/2016-10-23 - 21-45 AS Roma 4 - 1 Palermo
+italy_serie-a/2016-2017/2017-05-28 - 19-00 AS Roma 3 - 2 Genoa
+italy_serie-a/2016-2017/2017-05-07 - 21-45 AC Milan 1 - 4 AS Roma
+italy_serie-a/2016-2017/2017-03-04 - 17-00 AS Roma 1 - 2 Napoli
+italy_serie-a/2016-2017/2017-04-09 - 21-45 Lazio 0 - 3 Napoli
+italy_serie-a/2016-2017/2016-12-22 - 22-45 AS Roma 3 - 1 Chievo
+italy_serie-a/2016-2017/2017-03-12 - 17-00 Napoli 3 - 0 Crotone
+italy_serie-a/2016-2017/2017-01-15 - 17-00 Udinese 0 - 1 AS Roma
+italy_serie-a/2016-2017/2016-11-06 - 22-45 AS Roma 3 - 0 Bologna
+italy_serie-a/2016-2017/2017-05-14 - 21-45 AS Roma 3 - 1 Juventus
+italy_serie-a/2016-2017/2016-11-20 - 22-45 AC Milan 2 - 2 Inter
+italy_serie-a/2016-2017/2016-10-26 - 21-45 Napoli 2 - 0 Empoli
+italy_serie-a/2016-2017/2016-10-26 - 21-45 Sassuolo 1 - 3 AS Roma
+italy_serie-a/2016-2017/2016-10-30 - 17-00 AC Milan 1 - 0 Pescara
+italy_serie-a/2016-2017/2016-09-17 - 21-45 Napoli 3 - 1 Bologna
+italy_serie-a/2016-2017/2016-08-21 - 21-45 Pescara 2 - 2 Napoli
+italy_serie-a/2016-2017/2016-10-30 - 17-00 Empoli 0 - 0 AS Roma
+italy_serie-a/2016-2017/2017-04-24 - 21-45 Pescara 1 - 4 AS Roma
+italy_serie-a/2016-2017/2016-09-21 - 21-45 AS Roma 4 - 0 Crotone
+italy_serie-a/2016-2017/2017-01-15 - 17-00 Napoli 3 - 1 Pescara
+italy_serie-a/2016-2017/2016-10-25 - 21-45 Genoa 3 - 0 AC Milan
+italy_serie-a/2016-2017/2016-10-23 - 16-00 Crotone 1 - 2 Napoli
+italy_serie-a/2016-2017/2017-03-19 - 22-45 AS Roma 3 - 1 Sassuolo
+italy_serie-a/2016-2017/2017-01-21 - 22-45 AC Milan 1 - 2 Napoli
+italy_serie-a/2016-2017/2017-01-08 - 20-00 AC Milan 1 - 0 Cagliari
+italy_serie-a/2016-2017/2016-12-04 - 14-30 AC Milan 2 - 1 Crotone
+italy_serie-a/2016-2017/2017-04-15 - 16-00 AS Roma 1 - 1 Atalanta
+italy_serie-a/2016-2017/2017-02-10 - 22-45 Napoli 2 - 0 Genoa
+italy_serie-a/2016-2017/2017-05-14 - 16-00 Torino 0 - 5 Napoli
+italy_serie-a/2016-2017/2017-03-19 - 14-30 Empoli 2 - 3 Napoli
+italy_serie-a/2016-2017/2017-02-19 - 20-00 AS Roma 4 - 1 Torino
+italy_serie-a/2016-2017/2016-10-15 - 16-00 Napoli 1 - 3 AS Roma
+italy_serie-a/2016-2017/2017-02-04 - 22-45 Bologna 1 - 7 Napoli
+italy_serie-a/2016-2017/2017-04-09 - 16-00 Bologna 0 - 3 AS Roma
+italy_serie-a/2016-2017/2017-05-20 - 19-00 Chievo 3 - 5 AS Roma
+italy_serie-a/2016-2017/2016-11-27 - 22-45 AS Roma 3 - 2 Pescara
+italy_serie-a/2016-2017/2017-05-28 - 19-00 Sampdoria 2 - 4 Napoli

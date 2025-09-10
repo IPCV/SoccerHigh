@@ -1,0 +1,9 @@
+# Website data
+
+_site
+_posts
+_docs
+
+Gemfile.lock
+
+# Main data
