@@ -2,6 +2,8 @@
 
 This dataset is constructed following the SoccerNet directories structure of `league -> season -> game`. Also the labels file (`Labels-summary.json`) incorporates the new fields into the existing ones from `Labels-v2.json` in SoccerNet.
 
+The parent directory also contains three text files: `train.txt`, `validation.txt`, and `test.txt`, which list the games included in each subset defined in the paper.
+
 ---
 
 ## 📂 Dataset Structure
@@ -10,6 +12,9 @@ The dataset is organized hierarchically:
 
 ```text
 dataset/
+├── train.txt
+├── validation.txt
+├── test.txt
 ├── <league>/
 │   ├── <season>/
 │   │   ├── <game>/
