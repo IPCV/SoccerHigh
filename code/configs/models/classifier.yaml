@@ -1,0 +1,64 @@
+_target_: models.classifier.SummaryClassifier
+_recursive_: False
+
+input_dim: 2048
+ndim: 256
+
+encoder:
+  _target_: models.classifier.TransformerEncoder
+  ndim: ${..ndim}
+  nlayers: 2
+  nheads: 8
+  dropout: 0.1
+  batch_first: True
+  add_cls_token: False
+  src_key_padding_mask: null
+
+decoder: null
+
+add_clip_length: False
+
+head:
+  _target_: models.heads.SimpleHead
+  ndim: ${..ndim}
+  num_classes: 1
+
+loss_fn:
+  - 
+    _target_: torch.nn.BCEWithLogitsLoss
+    _recursive_: True
+    pos_weight:
+      _target_: torch.tensor
+      data: 1.0
+    reduction: mean
+
+optimizer:
+  _target_: torch.optim.AdamW
+  params: null
+  lr: 1e-3
+  betas:
+    - 0.9
+    - 0.999
+  eps: 1e-08 
+  weight_decay: 0.05
+  amsgrad: False
+
+scheduler:
+  _target_: torch.optim.lr_scheduler.ReduceLROnPlateau
+  mode: min
+  verbose: True
+  patience: 6
+
+weights:
+  path: null
+  checkpoint: null
+
+metrics:
+  - f1
+  - accuracy
+  - precision
+  - recall
+  - AP
+
+mixup: null
+threshold: 0.5

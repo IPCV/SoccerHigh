@@ -1,0 +1,46 @@
+_target_: lightning.pytorch.trainer.Trainer
+accelerator: gpu
+strategy: auto
+devices: auto
+num_nodes: 1
+precision: 32
+logger: False
+callbacks:
+  - _target_: lightning.pytorch.callbacks.EarlyStopping
+    monitor: valid/loss
+    patience: 30
+    verbose:  True
+    mode: min
+    check_finite: True
+  - _target_: lightning.pytorch.callbacks.ModelCheckpoint
+    monitor: valid/loss
+    verbose:  True
+    save_top_k: 1
+    mode: min
+  - _target_: lightning.pytorch.callbacks.LearningRateMonitor
+    logging_interval: epoch
+    log_momentum: False
+fast_dev_run: False
+max_epochs: 300
+min_epochs: null
+max_steps: -1
+min_steps: null
+max_time: null
+limit_train_batches: 1.0
+limit_val_batches: 1.0
+limit_test_batches: 1.0
+limit_predict_batches: 1.0
+overfit_batches: 0.0
+val_check_interval: 1.0
+check_val_every_n_epoch: 1
+num_sanity_val_steps: -1
+log_every_n_steps: 50
+enable_checkpointing: True
+enable_progress_bar: True
+enable_model_summary: True
+accumulate_grad_batches: 1
+gradient_clip_val: null
+gradient_clip_algorithm: norm
+deterministic: null
+benchmark: null
+sync_batchnorm: False
