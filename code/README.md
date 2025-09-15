@@ -35,15 +35,15 @@ code/
 ├── evaluation/              
 │   ├── evaluate.py                 # Compute metrics and summarize model performance
 ├── inference/               
-│   ├── inference.py                # Run inference on new games
+│   ├── inference.py                # Key shot selection for inference
 │   ├── utils.py                    # Helper functions for inference
 ├── models/                  
-│   ├── classifier.py               # Baseline model
+│   ├── classifier.py               # Baseline model implementation
 │   ├── dino.py                     # DINO implementation
 │   ├── heads.py                    # Model heads definitions
 │   ├── transnetv2.py               # TransNetv2 implementation
 ├── scripts/                 
-│   ├── trimm_summary.py            # Script to trim summaries or preprocess data
+│   ├── trimm_summary.py            # Script to compute new summary annotations
 ├── predict.py                      # Inference script
 ├── test.py                         # Testing script
 ├── train.py                        # Training script
