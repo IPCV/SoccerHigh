@@ -1,6 +1,6 @@
 defaults:
   - /datamodules@datamodule: default
-  - /models@model: classifier
+  - /models@model: defaults
   - /trainer@trainer: default
   - _self_
 
@@ -39,7 +39,7 @@ datamodule:
   splits: ${splits}
   train:
     dataset:
-      game_list: data/train.txt
+      game_list: ${data_dir}/train.txt
       filename: intervals.srt
       frames_dir: 'HQ_224p'
       regression: True
@@ -50,7 +50,7 @@ datamodule:
     shuffle: True
   valid: 
     dataset:
-      game_list: data/validation.txt
+      game_list: ${data_dir}/validation.txt
       filename: ${datamodule.train.dataset.filename}
       frames_dir: 'HQ_224p'
       stride: 0
@@ -61,6 +61,7 @@ datamodule:
         ndim: ${model.input_dim}
     shuffle: False
   test: null
+  predict: null
 
 trainer:
   logger: null

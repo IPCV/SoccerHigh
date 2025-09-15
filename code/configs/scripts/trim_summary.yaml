@@ -4,7 +4,7 @@ dataset:
   split: null
   frame_rate: 2
   tiny: null
-  game_list: data/game_list.txt
+  game_list: ${data_dir}/game_list.txt
 
 backbone: dinov2
 transnet: null

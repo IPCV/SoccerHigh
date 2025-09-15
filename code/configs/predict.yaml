@@ -10,9 +10,14 @@ window_size_sec: 60
 frame_rate: 2
 num_workers: 5
 splits:
-  - test
+  - predict
 include_actions: False
-include_cameras: False
+
+return_predictions: True
+save_output: True
+
+output_path: null # Output JSON file
+checkpoint: null # Model path
 
 model:
   input_dim: 384
@@ -23,24 +28,15 @@ model:
     nheads: 2
     num_classes: 1
     weights: [1.0, 0.05]
-  loss_fn: 
-  -   _target_: torch.nn.BCEWithLogitsLoss
-      _recursive_: True
-      weight:
-        _target_: torch.tensor
-        data: 1.0
-      reduction: mean
-  -   _target_: torch.nn.SmoothL1Loss
-      reduction: mean
-  mixup: null
 
 datamodule:
   splits: ${splits}
   train: null
   valid: null
-  test: 
+  test: null
+  predict: 
     dataset:
-      game_list: ${data_dir}/validation.txt
+      game_list: null
       filename: intervals.srt
       frames_dir: 'HQ_224p'
       regression: True
@@ -49,7 +45,6 @@ datamodule:
         filename: HQ_224p_VideoMAEv2_SmallFromGiant_K710_384.npy
         ndim: ${model.input_dim}
     shuffle: False
-  predict: null
 
 trainer:
   logger: null
@@ -61,8 +56,6 @@ seed:
   _target_: lightning.fabric.utilities.seed.seed_everything
   seed: 42
   workers: True
-
-checkpoint: null # Model path
 
 hydra:
   hydra_logging:
