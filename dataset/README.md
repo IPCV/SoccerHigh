@@ -30,10 +30,10 @@ dataset/
 ### 📝 Files per game
 
 - **`1_HQ_224p_VideoMAEv2_Giant_K710_1408.npy`**  
-  Frame features from the game's first half, extracted with the [VideoMAEv2-Giant](https://huggingface.co/OpenGVLab/VideoMAE2/tree/main/mae-g) giant backbone.
+  Frame features from the game's first half, extracted with the [VideoMAEv2-Giant](https://huggingface.co/OpenGVLab/VideoMAE2/tree/main/mae-g) backbone.
 
 - **`1_HQ_224p_VideoMAEv2_SmallFromGiant_K710_384.npy`**  
-  Frame features from the game's first half, extracted with the [VideoMAEv2-SmallFromGiant](https://huggingface.co/OpenGVLab/VideoMAE2/tree/main/distill) small from giant backbone.
+  Frame features from the game's first half, extracted with the [VideoMAEv2-SmallFromGiant](https://huggingface.co/OpenGVLab/VideoMAE2/tree/main/distill) backbone.
 
 - **`1_intervals.srt`**  
   Annotated temporal segments for the first half in `.srt` format.  
@@ -42,7 +42,7 @@ dataset/
   Frame features from the game's second half, extracted with the [VideoMAEv2-Giant](https://huggingface.co/OpenGVLab/VideoMAE2/tree/main/mae-g) backbone.
 
 - **`2_HQ_224p_VideoMAEv2_SmallFromGiant_K710_384.npy`**  
-  Frame features from the game's second half, extracted with the [VideoMAEv2-SmallFromGiant](https://huggingface.co/OpenGVLab/VideoMAE2/tree/main/distill) small from giant backbone.
+  Frame features from the game's second half, extracted with the [VideoMAEv2-SmallFromGiant](https://huggingface.co/OpenGVLab/VideoMAE2/tree/main/distill) backbone.
 
 - **`2_intervals.srt`**  
   Annotated temporal segments for the second half in `.srt` format.
