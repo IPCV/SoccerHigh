@@ -3,9 +3,7 @@ import hydra
 import lightning.pytorch as pl
 import numpy as np
 
-from pathlib import Path
-
-from models.heads import DSNetAFHead, DSNetAFwithActionsHead
+from models.heads import DSNetAFHead
 from evaluation.evaluate import compute_frame_metrics, average_predictions, keyshot_selection, compute_segment_metrics, get_metric_per_match, select_temporal_keyshots, compute_temporal_metrics, compute_shot_mAP, print_evaluation
 
 # Original code https://github.com/tatp22/multidim-positional-encoding
@@ -101,46 +99,6 @@ class TransformerEncoder(torch.nn.Module):
             x = x = self.encoder(x)
 
         return x
-    
-class TransformerDecoder(torch.nn.Module):
-    def __init__(
-            self,
-            ndim,
-            nlayers,
-            nheads,
-            dropout,
-            batch_first
-    ):
-        super().__init__()
-                
-        self.decoder = torch.nn.TransformerDecoder(
-            decoder_layer=torch.nn.TransformerDecoderLayer(
-                d_model=ndim, 
-                nhead=nheads, 
-                dropout=dropout, 
-                batch_first=batch_first
-            ),
-            num_layers=nlayers,
-            norm=torch.nn.LayerNorm(ndim)
-        )
-        
-    def load_weights(self, weights):
-        self.load_state_dict(weights, strict=False)
-        print("Decoder weights succesfully loaded")
-
-    def forward(self, x, tgt):
-        return self.decoder(tgt, x)
-    
-class FiLM(torch.nn.Module):
-    def __init__(self, in_channels, out_channels):
-        super().__init__()
-        self.scaling = torch.nn.Linear(in_channels, out_channels)
-        self.bias = torch.nn.Linear(in_channels, out_channels)
-
-    def forward(self, visual_features, modality_features):
-        af_scale = self.scaling(modality_features)
-        af_bias = self.bias(modality_features)
-        return visual_features * af_scale + af_bias
 
 class SummaryClassifier(pl.LightningModule):
     def __init__(
@@ -148,15 +106,13 @@ class SummaryClassifier(pl.LightningModule):
         input_dim,
         ndim,
         encoder,
-        decoder,
         head,
         loss_fn,
         optimizer,
         scheduler,
-        weights,
         metrics,
         mixup,
-        add_clip_length,
+        evaluate,
         threshold
     ):
         super().__init__()
@@ -168,30 +124,12 @@ class SummaryClassifier(pl.LightningModule):
             )
         
         self.encoder = hydra.utils.instantiate(encoder)
-
-        # if decoder:
-        #     self.decoder = hydra.utils.instantiate(decoder)
-
-        if add_clip_length:    
-            self.film = FiLM(
-                in_channels=1,
-                out_channels=1
-            )
             
         self.head = hydra.utils.instantiate(head) 
         self.loss_fn = [hydra.utils.instantiate(loss) for loss in loss_fn]
 
         if not isinstance(self.loss_fn[0], torch.nn.BCEWithLogitsLoss):
-            self.sigmoid = torch.nn.Sigmoid() # TODO: Take into account all possible losses
-        
-        # if weights:
-        #     checkpoint = torch.load(Path(weights.path).joinpath(weights.checkpoint))
-        #     self.encoder.load_weights({k: checkpoint['state_dict'][k] for k in checkpoint['state_dict'] if 'encoder' in k})
-        #     if hasattr(self, 'dim_reduction'):
-        #         self.dim_reduction.load_state_dict({k.split('.')[-1]: checkpoint['state_dict'][k] for k in checkpoint['state_dict'] if 'reduction' in k})
-        #         print("Reduction weights succesfully loaded")
-        #     if isinstance(self.head, DSNetAFwithActionsHead):
-        #         self.head.load_weights({k.replace('head_conv.', ''): checkpoint['state_dict'][k] for k in checkpoint['state_dict'] if 'head' in k})
+            self.sigmoid = torch.nn.Sigmoid()
 
         setattr(self, 'optimizer', optimizer)
         setattr(self, 'scheduler', scheduler)
@@ -201,30 +139,18 @@ class SummaryClassifier(pl.LightningModule):
         if mixup:
             self.mixup = hydra.utils.instantiate(mixup)
 
-        self.threshold = threshold
+        setattr(self, 'evaluate', evaluate)
+        
+        setattr(self, 'threshold', threshold)
 
-    def forward(self, x, compression_ratio=None):
-        # Save dimension values
-        b, t, d = x.shape
-
+    def forward(self, x):
         if hasattr(self, 'dim_reduction'):
             x = self.dim_reduction(x)
-            d = x.shape[-1]
             
         x = self.encoder(x)
-
-        # if hasattr(self.encoder, 'cls_token'):
-        #     x = x[:,1:,:]
-        
-        # if hasattr(self, 'decoder'):
-        #     x = self.decoder(x, x) # TODO: query representation
-        
-        # if compression_ratio is not None and hasattr(self, 'film'):
-        #     x = self.film(x, compression_ratio.view(b, 1, 1))
         
         x = self.head(x)
         
-       
         x = [x[i] for i in range(self.head.nheads)] if self.head.nheads > 1 else [x]
                 
         if hasattr(self, 'sigmoid'):
@@ -249,8 +175,8 @@ class SummaryClassifier(pl.LightningModule):
         }
     
     def on_train_epoch_start(self):
-        setattr(self, 'compression_ratio', torch.from_numpy(self.trainer.datamodule.train_dataset.compression_ratio).to(self.device).float())
-
+        pass
+    
     def training_step(self, batch, batch_idx):
         x, y = batch['x'], batch['y']
         
@@ -259,9 +185,7 @@ class SummaryClassifier(pl.LightningModule):
 
         mask = batch['mask'] if 'mask' in batch.keys() else None
 
-        compression_ratio = self.compression_ratio[batch['info']['match_id']] if batch['info']['match_id'] is not None else None
-
-        y_hat = self.forward(x, compression_ratio)
+        y_hat = self.forward(x)
 
         loss = 0
         for i, (key, value) in enumerate(y.items()):
@@ -331,13 +255,14 @@ class SummaryClassifier(pl.LightningModule):
         
         return loss
     
-    def on_validation_epoch_start(self):    
-        self.outputs, self.labels = [], []
-        if isinstance(self.head, DSNetAFHead):
-            self.predictions = []
-            categories = ["", "_masked", "_offmatch"] if self.trainer.datamodule.valid_dataset.dataset_info['masked'] else [""]
-            metrics = ["TP", "FP", "FN", "IoU", "precision", "recall", "f1"]
-            self.eval_metrics = {f"{metric}{category}": 0 for metric in metrics for category in categories}
+    def on_validation_epoch_start(self):   
+        if self.evaluate: 
+            self.outputs, self.labels = [], []
+            if isinstance(self.head, DSNetAFHead):
+                self.predictions = []
+                categories = ["", "_masked", "_offmatch"] if self.trainer.datamodule.valid_dataset.dataset_info['masked'] else [""]
+                metrics = ["TP", "FP", "FN", "IoU", "precision", "recall", "f1"]
+                self.eval_metrics = {f"{metric}{category}": 0 for metric in metrics for category in categories}
 
     def validation_step(self, batch, batch_idx):
         x, y = batch['x'], batch['y']
@@ -411,119 +336,119 @@ class SummaryClassifier(pl.LightningModule):
              batch_size=x.shape[0]
         )
         
-        if not hasattr(self, 'sigmoid'):
-            y_hat[0] = y_hat[0].sigmoid()
-            if self.head.nheads > 2:
-                y_hat[2] = y_hat[2].sigmoid()
-                
-        if hasattr(self, 'predictions'):
-            self.predictions.append([y_hat[i].cpu().detach().numpy() for i in range(self.head.nheads)])
-        
-        if self.trainer.datamodule.valid_dataset.dataset_info['stride'] == self.trainer.datamodule.valid_dataset.dataset_info['frames_per_window']:
-            self.outputs.extend(np.concatenate(y_hat[0].cpu().detach().numpy()))
-            self.labels.extend(np.concatenate(y['labels'].cpu().detach().numpy()))
-        else:
-            self.outputs.append(y_hat[0].cpu().detach().numpy())
+        if self.evaluate:
+            if not hasattr(self, 'sigmoid'):
+                y_hat[0] = y_hat[0].sigmoid()
+                if self.head.nheads > 2:
+                    y_hat[2] = y_hat[2].sigmoid()
+                    
+            if hasattr(self, 'predictions'):
+                self.predictions.append([y_hat[i].cpu().detach().numpy() for i in range(self.head.nheads)])
+            
+            if self.trainer.datamodule.valid_dataset.dataset_info['stride'] == self.trainer.datamodule.valid_dataset.dataset_info['frames_per_window']:
+                self.outputs.extend(np.concatenate(y_hat[0].cpu().detach().numpy()))
+                self.labels.extend(np.concatenate(y['labels'].cpu().detach().numpy()))
+            else:
+                self.outputs.append(y_hat[0].cpu().detach().numpy())
 
         return loss
     
     def on_validation_epoch_end(self):
-       
-        if self.trainer.datamodule.valid_dataset.dataset_info['stride'] != self.trainer.datamodule.valid_dataset.dataset_info['frames_per_window']:
-            self.outputs, self.labels = average_predictions(
-                predictions=self.outputs,
-                dataset=self.trainer.datamodule.valid_dataset,
-                batch_size=self.trainer.datamodule.valid.batch_size,
-                threshold=self.threshold if hasattr(self, 'threshold') else 0.5
-            )
-        # Analyse raw frame prediction
-        for metric in self.metrics:
-            score = compute_frame_metrics(
-                predictions=self.outputs,
-                target=self.labels,
-                metric=metric,
-                classes=1,
-                threshold=self.threshold if hasattr(self, 'threshold') else 0.5
-            )
-            
-            self.log(
-                f"metrics/frame/{metric}", 
-                score, 
-                on_step=False, 
-                on_epoch=True,
-                prog_bar=False, 
-                logger=True, 
-                sync_dist=True
-            )
-        
-        # Apply keyshot selection
-        if hasattr(self, 'predictions'):
-            keyshots, self.eval_metrics, preds = keyshot_selection(
-                predictions=self.predictions, 
-                dataset=self.trainer.datamodule.valid_dataset, 
-                threshold=self.threshold if hasattr(self, 'threshold') else 0.5,
-                metrics=self.eval_metrics
-            )
-            
-            if keyshots:
-                compression_ratio = 1/self.trainer.datamodule.valid_dataset.compression_ratio
-                for metric in ['f1']:
-                    scores = get_metric_per_match(keyshots, metric)
-                    if isinstance(self.logger, pl.loggers.WandbLogger):
-                        for i, score in enumerate(scores):
-                            self.log(
-                                f"inference/{metric}/{i}: {round(100*compression_ratio[i], 3)}", 
-                                score, 
-                                on_step=False, 
-                                on_epoch=True,
-                                prog_bar=False, 
-                                logger=True, 
-                                sync_dist=True
-                            )
-
-                # Compute mAP
-                mAP = compute_shot_mAP(keyshots, self.trainer.datamodule.valid_dataset.nframes)
+        if self.evaluate:
+            if self.trainer.datamodule.valid_dataset.dataset_info['stride'] != self.trainer.datamodule.valid_dataset.dataset_info['frames_per_window']:
+                self.outputs, self.labels = average_predictions(
+                    predictions=self.outputs,
+                    dataset=self.trainer.datamodule.valid_dataset,
+                    batch_size=self.trainer.datamodule.valid.batch_size,
+                    threshold=self.threshold if hasattr(self, 'threshold') else 0.5
+                )
+            # Analyse raw frame prediction
+            for metric in self.metrics:
+                score = compute_frame_metrics(
+                    predictions=self.outputs,
+                    target=self.labels,
+                    metric=metric,
+                    classes=1,
+                    threshold=self.threshold if hasattr(self, 'threshold') else 0.5
+                )
                 
                 self.log(
-                    f"metrics/segment/mAP", 
-                    mAP, 
+                    f"metrics/frame/{metric}", 
+                    score, 
                     on_step=False, 
                     on_epoch=True,
                     prog_bar=False, 
                     logger=True, 
                     sync_dist=True
                 )
-
-            # Analyse keyshot selection
-            if self.eval_metrics:
-                self.eval_metrics = compute_segment_metrics(self.eval_metrics, len(self.trainer.datamodule.valid_dataset.nframes), self.trainer.datamodule.valid_dataset.dataset_info['masked'])
-
-                for metric in self.eval_metrics:
-                    self.log(
-                        f"metrics/segment/{metric}", 
-                        self.eval_metrics[metric], 
-                        on_step=False, 
-                        on_epoch=True,
-                        prog_bar=False, 
-                        logger=True, 
-                        sync_dist=True
-                    )
-
-            if keyshots:
-                # Compute metrics for fitted predictions
-                temporal_keyshots = select_temporal_keyshots(keyshots=keyshots, clip_segment=False)
-                temporal_metrics = compute_temporal_metrics(keyshots=temporal_keyshots, n_frames=self.trainer.datamodule.valid_dataset.nframes, average=True, preds=preds)
+            
+            # Apply keyshot selection
+            if hasattr(self, 'predictions'):
+                keyshots, self.eval_metrics, preds = keyshot_selection(
+                    predictions=self.predictions, 
+                    dataset=self.trainer.datamodule.valid_dataset, 
+                    threshold=self.threshold if hasattr(self, 'threshold') else 0.5,
+                    metrics=self.eval_metrics
+                )
                 
-                for metric in temporal_metrics:
+                if keyshots:
+                    for metric in ['f1']:
+                        scores = get_metric_per_match(keyshots, metric)
+                        if isinstance(self.logger, pl.loggers.WandbLogger):
+                            for i, score in enumerate(scores):
+                                self.log(
+                                    f"inference/{metric}/match {i}", 
+                                    score, 
+                                    on_step=False, 
+                                    on_epoch=True,
+                                    prog_bar=False, 
+                                    logger=True, 
+                                    sync_dist=True
+                                )
+
+                    # Compute mAP
+                    mAP = compute_shot_mAP(keyshots, self.trainer.datamodule.valid_dataset.nframes)
+                    
                     self.log(
-                        f"metrics/temporal/{metric}", 
-                        temporal_metrics[metric], 
+                        f"metrics/segment/mAP", 
+                        mAP, 
                         on_step=False, 
                         on_epoch=True,
                         prog_bar=False, 
                         logger=True, 
                         sync_dist=True
                     )
+
+                # Compute keyshot selection metrics
+                if self.eval_metrics:
+                    self.eval_metrics = compute_segment_metrics(self.eval_metrics, len(self.trainer.datamodule.valid_dataset.nframes), self.trainer.datamodule.valid_dataset.dataset_info['masked'])
+
+                    for metric in self.eval_metrics:
+                        self.log(
+                            f"metrics/segment/{metric}", 
+                            self.eval_metrics[metric], 
+                            on_step=False, 
+                            on_epoch=True,
+                            prog_bar=False, 
+                            logger=True, 
+                            sync_dist=True
+                        )
+
+                if keyshots:
+                    # Compute metrics for fitted predictions
+                    temporal_keyshots = select_temporal_keyshots(keyshots=keyshots, clip_segment=False)
+                    temporal_metrics = compute_temporal_metrics(keyshots=temporal_keyshots, n_frames=self.trainer.datamodule.valid_dataset.nframes, average=True, preds=preds)
+                    
+                    for metric in temporal_metrics:
+                        self.log(
+                            f"metrics/temporal/{metric}", 
+                            temporal_metrics[metric], 
+                            on_step=False, 
+                            on_epoch=True,
+                            prog_bar=False, 
+                            logger=True, 
+                            sync_dist=True
+                        )
         return
     
     def on_test_epoch_start(self):    

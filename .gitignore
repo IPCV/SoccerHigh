@@ -10,3 +10,6 @@ Gemfile.lock
 # Code data
 
 __pycache__
+code/lightning_logs
+code/data
+code/outputs

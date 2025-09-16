@@ -3,6 +3,7 @@ _recursive_: False
 
 input_dim: 2048
 ndim: 256
+evaluate: False
 
 encoder:
   _target_: models.classifier.TransformerEncoder
@@ -13,10 +14,6 @@ encoder:
   batch_first: True
   add_cls_token: False
   src_key_padding_mask: null
-
-decoder: null
-
-add_clip_length: False
 
 head:
   _target_: models.heads.SimpleHead
@@ -48,10 +45,6 @@ scheduler:
   mode: min
   verbose: True
   patience: 6
-
-weights:
-  path: null
-  checkpoint: null
 
 metrics:
   - f1

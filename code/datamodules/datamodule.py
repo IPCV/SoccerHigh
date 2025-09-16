@@ -13,7 +13,8 @@ class DataModule(pl.LightningDataModule):
         splits: list, 
         train: DictConfig,
         valid: DictConfig,
-        test: DictConfig
+        test: DictConfig,
+        predict: DictConfig
     ):
         super().__init__()
 
@@ -33,6 +34,11 @@ class DataModule(pl.LightningDataModule):
             self.test_dataset = test.dataset
             test.pop('dataset')
             setattr(self, 'test', test)
+            
+        if 'predict' in splits:
+            self.predict_dataset = predict.dataset
+            predict.pop('dataset')
+            setattr(self, 'predict', predict)
 
     def prepare_data(self):
         pass
@@ -61,6 +67,12 @@ class DataModule(pl.LightningDataModule):
             dataset=self.test_dataset,
             **self.test
         ) if hasattr(self, 'test_dataset') else None
+        
+    def predict_dataloader(self):
+        return DataLoader(
+            dataset=self.predict_dataset,
+            **self.predict
+        ) if hasattr(self, 'predict_dataset') else None
     
 
 def custom_collate_fn(batch):

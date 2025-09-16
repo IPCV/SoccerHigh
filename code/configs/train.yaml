@@ -1,6 +1,6 @@
 defaults:
   - /datamodules@datamodule: default
-  - /models@model: defaults
+  - /models@model: default
   - /trainer@trainer: default
   - _self_
 
@@ -18,6 +18,7 @@ include_cameras: False
 model:
   input_dim: 384
   ndim: 256
+  evaluate: False
   head:
     _target_: models.heads.DSNetAFHead
     ndim: ${..ndim}
@@ -33,7 +34,6 @@ model:
       reduction: mean
   -   _target_: torch.nn.SmoothL1Loss
       reduction: mean
-  weights: null
 
 datamodule:
   splits: ${splits}
