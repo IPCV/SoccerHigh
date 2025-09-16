@@ -95,8 +95,10 @@ python3 train.py
 Evaluate a trained model checkpoint:
 
 ```bash
-python3 test.py checkpoint='/path/to/checkpoint.ckpt'
+python3 test.py checkpoint='weights/checkpoint.ckpt'
 ```
+
+Replace `checkpoint.ckpt` with the actual checkpoint name.
 
 ### 3. Inference
 

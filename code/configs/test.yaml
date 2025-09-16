@@ -15,7 +15,7 @@ include_actions: False
 include_cameras: False
 
 model:
-  input_dim: 384
+  input_dim: 1408
   ndim: 256
   head:
     _target_: models.heads.DSNetAFHead
@@ -40,13 +40,13 @@ datamodule:
   valid: null
   test: 
     dataset:
-      game_list: ${data_dir}/validation.txt
+      game_list: ${data_dir}/test.txt
       filename: intervals.srt
       frames_dir: 'HQ_224p'
       regression: True
       preload_features:
-        name: videoMAEv2-small
-        filename: HQ_224p_VideoMAEv2_SmallFromGiant_K710_384.npy
+        name: videoMAEv2-giant
+        filename: HQ_224p_VideoMAEv2_Giant_K710_1408.npy
         ndim: ${model.input_dim}
     shuffle: False
   predict: null
@@ -62,7 +62,7 @@ seed:
   seed: 42
   workers: True
 
-checkpoint: null # Model path
+checkpoint: weights/Baseline_VideoMAEv2-Giant.ckpt
 
 hydra:
   hydra_logging:

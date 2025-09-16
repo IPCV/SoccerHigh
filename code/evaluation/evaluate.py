@@ -688,19 +688,15 @@ def compute_shot_mAP(keyshots, nframes):
 
     return mAP
 
-def print_evaluation(frame_metrics, segment_metrics, temporal_metrics):
+def print_evaluation(segment_metrics, temporal_metrics):
     divider = '=' * 40
     print(f"\n{divider}\nEvaluation Summary\n{divider}")
 
-    print("\nFrame-Level Metrics:")
-    for metric, score in frame_metrics.items():
-        print(f"  - {metric:<20}: {score:.4f}")
-
-    print("\nShot-Level Metrics:")
+    print("\nSummarization Metrics:")
     for k, v in segment_metrics.items():
         print(f"  - {k:<20}: {v:.4f}")
 
-    print("\nGT-Level Metrics:")
+    print("\nGT-Conditioned Metrics (@T):")
     for k, v in temporal_metrics.items():
         print(f"  - {k:<20}: {v:.4f}")
 

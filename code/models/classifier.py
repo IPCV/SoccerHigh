@@ -521,14 +521,6 @@ class SummaryClassifier(pl.LightningModule):
                 batch_size=self.trainer.datamodule.test.batch_size,
                 threshold=self.threshold if hasattr(self, 'threshold') else 0.5
             )
-        # Analyse raw frame prediction
-        score = {metric: compute_frame_metrics(
-            predictions=self.outputs,
-            target=self.labels,
-            metric=metric,
-            classes=1,
-            threshold=self.threshold if hasattr(self, 'threshold') else 0.5
-        ) for metric in self.metrics}
         
         # Apply keyshot selection
         if hasattr(self, 'predictions'):
@@ -549,8 +541,7 @@ class SummaryClassifier(pl.LightningModule):
                 # Compute metrics for fitted predictions
                 temporal_keyshots = select_temporal_keyshots(keyshots=keyshots, clip_segment=False)
                 temporal_metrics = compute_temporal_metrics(keyshots=temporal_keyshots, n_frames=self.trainer.datamodule.test_dataset.nframes, average=True, preds=preds)
-                print('gt-level')
 
-        print_evaluation(score, self.eval_metrics, temporal_metrics)
+        print_evaluation(self.eval_metrics, temporal_metrics)
 
         return
