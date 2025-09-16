@@ -67,7 +67,7 @@ conda env create -f environment.yml
 conda activate soccerhigh
 ```
 
-**2. Create the Conda environment**:
+**2. Create a symbolic link to the dataset**:
 
 The code expects a symbolic link named data pointing to the dataset directory, which should contain the files from [SoccerHigh](https://github.com/IPCV/SoccerHigh/tree/main/dataset).
 
