@@ -69,7 +69,7 @@ conda activate soccerhigh
 
 **2. Create a symbolic link to the dataset**:
 
-The code expects a symbolic link named data pointing to the dataset directory, which should contain the files from [SoccerHigh](https://github.com/IPCV/SoccerHigh/tree/main/dataset).
+The code requires a folder named `data` (either a symbolic link or the dataset itself), containing the files from [SoccerHigh](https://github.com/IPCV/SoccerHigh/tree/main/dataset).
 
 ```bash
 ln -s /path/to/your/dataset data
@@ -78,7 +78,6 @@ ln -s /path/to/your/dataset data
 Replace `/path/to/your/dataset` with the actual path to your dataset folder.
 
 ---
-
 
 ## 🚀 Usage
 
