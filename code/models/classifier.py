@@ -545,3 +545,15 @@ class SummaryClassifier(pl.LightningModule):
         print_evaluation(self.eval_metrics, temporal_metrics)
 
         return
+    
+    def predict_step(self, batch, batch_idx):
+        x = batch['x']
+
+        y_hat = self.forward(x)
+
+        if not hasattr(self, 'sigmoid'):
+            y_hat[0] = y_hat[0].sigmoid()
+            if len(self.loss_fn) > 2:
+                y_hat[2] = y_hat[2].sigmoid()
+
+        return y_hat

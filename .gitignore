@@ -9,6 +9,7 @@ Gemfile.lock
 
 # Code data
 
+*.json
 __pycache__
 code/lightning_logs
 code/data

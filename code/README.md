@@ -11,8 +11,8 @@ The code for the baseline model is organized as follows:
 ```text
 code/
 ├── augmentations/           
-│   ├── mixup.py                    # Mixup augmentation implementation
-├── configs/                        # Hydra configuration files
+│   ├── mixup.py                          # Mixup augmentation implementation
+├── configs/                              # Hydra configuration files
 |   ├── datamodules/
 │   |   ├── default.yaml
 |   ├── datasets/
@@ -27,26 +27,29 @@ code/
 |   ├── test.yaml
 │   ├── train.yaml
 ├── datamodules/             
-│   ├── datamodule.py               # Data module handling datasets and dataloaders
+│   ├── datamodule.py                     # Data module handling datasets and dataloaders
 ├── datasets/                
-│   ├── soccernet_games.py          # Handles SoccerNet game-level data
-│   ├── soccernet_summarization.py  # Handles video summarization data
-│   ├── utils.py                    # Utility functions for dataset processing
+│   ├── soccernet_games.py                # Handles SoccerNet game-level data
+│   ├── soccernet_summarization.py        # Handles video summarization data
+│   ├── utils.py                          # Utility functions for dataset processing
 ├── evaluation/              
-│   ├── evaluate.py                 # Compute metrics and summarize model performance
+│   ├── evaluate.py                       # Compute metrics and summarize model performance
 ├── inference/               
-│   ├── inference.py                # Key shot selection for inference
-│   ├── utils.py                    # Helper functions for inference
+│   ├── inference.py                      # Key shot selection for inference
+│   ├── utils.py                          # Helper functions for inference
 ├── models/                  
-│   ├── classifier.py               # Baseline model implementation
-│   ├── dino.py                     # DINO implementation
-│   ├── heads.py                    # Model heads definitions
-│   ├── transnetv2.py               # TransNetv2 implementation
+│   ├── classifier.py                     # Baseline model implementation
+│   ├── dino.py                           # DINO implementation
+│   ├── heads.py                          # Model heads definitions
+│   ├── transnetv2.py                     # TransNetv2 implementation
 ├── scripts/                 
-│   ├── trimm_summary.py            # Script to compute new summary annotations
-├── predict.py                      # Inference script
-├── test.py                         # Testing script
-├── train.py                        # Training script
+│   ├── trimm_summary.py                  # Script to compute new summary annotations
+├── weights/
+│   ├── Baseline_VideoMAEv2-Giant.ckpt    # Baseline checkpoint using the VideoMAEv2 giant backbone 
+│   ├── Baseline_VideoMAEv2-Small.ckpt    # Baseline checkpoint using the VideoMAEv2 small backbone       
+├── predict.py                            # Inference script
+├── test.py                               # Testing script
+├── train.py                              # Training script
 ```
 
 ---
@@ -66,7 +69,7 @@ conda activate soccerhigh
 
 **2. Create the Conda environment**:
 
-The code expects a symbolic link named data pointing to the dataset directory, which should contain the files from [SoccerHigh](https://github.com/IPCV/SoccerHigh/tree/main/dataset) and the videos from [SoccerNet](https://www.soccer-net.org/data).
+The code expects a symbolic link named data pointing to the dataset directory, which should contain the files from [SoccerHigh](https://github.com/IPCV/SoccerHigh/tree/main/dataset).
 
 ```bash
 ln -s /path/to/your/dataset data
@@ -98,15 +101,17 @@ Evaluate a trained model checkpoint:
 python3 test.py checkpoint='weights/checkpoint.ckpt'
 ```
 
-Replace `checkpoint.ckpt` with the actual checkpoint name.
+Replace `checkpoint.ckpt` with the actual checkpoint name. Default: [`Baseline_VideoMAEv2-Giant.ckpt`](https://github.com/IPCV/SoccerHigh/blob/main/code/weights/Baseline_VideoMAEv2-Giant.ckpt)
 
 ### 3. Inference
 
 Run inference on new games:
 
 ```bash
-python3 predict.py checkpoint='/path/to/checkpoint.ckpt' output_path='/path/to/output/file.json' datamodule.predict.dataset.game_list='/path/to/new/games.txt'
+python3 predict.py checkpoint='weights/checkpoint.ckpt' output_path='file.json' datamodule.predict.dataset.game_list='/data/games.txt'
 ```
+
+Replace `checkpoint.ckpt`, `file.json` and `games.txt` with the actual file names. Default: [`Baseline_VideoMAEv2-Giant.ckpt`](https://github.com/IPCV/SoccerHigh/blob/main/code/weights/Baseline_VideoMAEv2-Giant.ckpt), `output.json` and `test.txt`
 
 ---
 
@@ -116,7 +121,7 @@ python3 predict.py checkpoint='/path/to/checkpoint.ckpt' output_path='/path/to/o
 
 - All configuration files are in `configs/` for easy experiment management.
 
-- Logs and checkpoints will be saved in the default generated directory `lighting_logs/`.
+- Logs and checkpoints will be saved in the default generated directory `lightning_logs/`.
 
 ---
 

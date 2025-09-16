@@ -54,7 +54,7 @@ def main(config: DictConfig):
         return_predictions=config.return_predictions,
         ckpt_path=checkpoint_path
     )
-
+    
     if predictions:
         predictions = keyshot_selection(
             predictions=predictions, 
