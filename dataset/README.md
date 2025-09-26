@@ -1,8 +1,12 @@
 # SoccerHigh Dataset ⚽️
 
-This dataset is constructed following the SoccerNet directories structure of `league -> season -> game`. Also the labels file (`Labels-summary.json`) incorporates the new fields into the existing ones from `Labels-v2.json` in SoccerNet.
+SoccerHigh is a benchmark dataset designed for automatic soccer video summarization. It follows the [SoccerNet](https://www.soccer-net.org/) directories structure of `league -> season -> game`. 
+For each game, a `Labels-summary.json` file is provided, which extends SoccerNet’s `Labels-v2.json` with new fields tailored to highlight detection and summary generation.
 
-The parent directory also contains three text files: `train.txt`, `validation.txt`, and `test.txt`, which list the games included in each subset defined in the paper.
+At the dataset root, three split files — `train.txt`, `validation.txt`, and `test.txt` — define the games included in each subset used in the paper.
+
+⚠️ Note: This repository contains only the annotation files.
+To access the complete dataset (features + annotations), download it [here] (https://drive.google.com/file/d/1lMVbjCAvbYpoLJ6F2tnZgbfhvGWHWhpf/view?usp=sharing).
 
 ---
 
