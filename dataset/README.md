@@ -6,7 +6,7 @@ For each game, a `Labels-summary.json` file is provided, which extends SoccerNet
 At the dataset root, three split files — `train.txt`, `validation.txt`, and `test.txt` — define the games included in each subset used in the paper.
 
 ⚠️ Note: This repository contains only the annotation files.
-To access the complete dataset (features + annotations), download it [here] (https://drive.google.com/file/d/1lMVbjCAvbYpoLJ6F2tnZgbfhvGWHWhpf/view?usp=sharing).
+To access the complete dataset (features + annotations), download it [here](https://drive.google.com/file/d/1lMVbjCAvbYpoLJ6F2tnZgbfhvGWHWhpf/view?usp=sharing).
 
 ---
 
