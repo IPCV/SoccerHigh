@@ -104,11 +104,20 @@ In `JSON`, this becomes:
 If you use this dataset in your research, please cite:
 
 ```bibtex
-@article{diaz2025soccerhigh,
-  title={SoccerHigh: A Benchmark Dataset for Automatic Soccer Video Summarization},
-  author={D{\'\i}az-Juan, Artur and Ballester, Coloma and Haro, Gloria},
-  journal={arXiv preprint arXiv:2509.01439},
-  year={2025}
+@inproceedings{10.1145/3728423.3759410,
+  author = {D\'{\i}az-Juan, Artur and Ballester, Coloma and Haro, Gloria},
+  title = {SoccerHigh: A Benchmark Dataset for Automatic Soccer Video Summarization},
+  year = {2025},
+  isbn = {9798400711985},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  url = {https://doi.org/10.1145/3728423.3759410},
+  doi = {10.1145/3728423.3759410},
+  booktitle = {Proceedings of the 8th International ACM Workshop on Multimedia Content Analysis in Sports},
+  pages = {121–130},
+  numpages = {10},
+  location = {Dublin, Ireland},
+  series = {MMSports '25}
 }
 ```
 ---
