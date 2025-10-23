@@ -63,7 +63,10 @@ class SoccerNetSummarization(SoccerNetGames):
         if not superclass:
             self.load_nframes()
             self.load_games_info()
-            self.load_summary_segments()
+
+            if split != 'predict':
+                self.load_summary_segments()
+
             self.create_windows()
             self.squeeze_windows()
         
@@ -363,15 +366,16 @@ class SoccerNetSummarization(SoccerNetGames):
         # Save image representations
         sample.update({'imgs': imgs})
 
-        # Get the ground-truth labels
-        labels = self.get_labels(window)
+        if self.dataset_info['split'] != 'predict':
+            # Get the ground-truth labels
+            labels = self.get_labels(window)
 
-        # Save each GT element
-        for key, value in labels.items():
-            # Apply last element padding for incomplete labels
-            if value.shape[0] != self.dataset_info['frames_per_window']:
-                value = self.replicate_last_element(value)
-            sample.update({key: value})
+            # Save each GT element
+            for key, value in labels.items():
+                # Apply last element padding for incomplete labels
+                if value.shape[0] != self.dataset_info['frames_per_window']:
+                    value = self.replicate_last_element(value)
+                sample.update({key: value})
 
         # Return clip information
         return sample
