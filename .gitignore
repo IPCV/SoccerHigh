@@ -2,3 +2,6 @@ _site
 _posts
 
 Gemfile.lock
+
+code/
+dataset/
