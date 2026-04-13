@@ -5,8 +5,8 @@ For each game, a `Labels-summary.json` file is provided, which extends SoccerNet
 
 At the dataset root, three split files — `train.txt`, `validation.txt`, and `test.txt` — define the games included in each subset used in the paper.
 
-⚠️ Note: This repository contains only the annotation files.
-To access the complete dataset (features + annotations), download it [here](https://drive.google.com/file/d/1lMVbjCAvbYpoLJ6F2tnZgbfhvGWHWhpf/view?usp=sharing).
+⚠️ Note: This repository contains only the annotation files. The features have been moved to the Hugging Face page and can be accessed [here](https://huggingface.co/datasets/imva-upf/SoccerHigh).
+The annotated timestamps refer to the [HQ](https://huggingface.co/datasets/SoccerNet/SoccerNet_raw_HQ) videos from SoccerNet. If you use other versions, please take into account the `video.ini` files provided in the SoccerNet package to apply the appropriate temporal offset.
 
 ---
 
