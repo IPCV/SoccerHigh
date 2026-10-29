@@ -166,16 +166,19 @@ def keyshot_selection(predictions, dataset, threshold=0.5, metrics=None):
                 # Avoid empty predictions
                 if idx_map[match_idx][half_idx][boundaries_key]['preds'].__len__() == 0:
                     continue
+                # Offsets of the positive frames, one row (start offset, end offset) per frame. The stacked array has
+                # shape (n_offsets, n_positives), so it must be transposed: reshape((-1, n_offsets)) would pair the
+                # start offsets of consecutive frames (and then their end offsets) with the wrong frames
                 if dataset.dataset_info['stride'] == dataset.dataset_info['frames_per_window']:
                     boundaries = np.asarray([
                         np.expand_dims(np.asarray(idx_map[match_idx][half_idx][boundaries_key]['preds'])[:, :, i], axis=-1)[positives] 
                         for i in range(np.asarray(idx_map[match_idx][half_idx][boundaries_key]['preds']).shape[-1])
-                    ]).reshape((-1, np.asarray(idx_map[match_idx][half_idx][boundaries_key]['preds']).shape[-1]))
+                    ]).T
                 else:
                     boundaries =  np.asarray([
                         np.expand_dims(idx_map[match_idx][half_idx][boundaries_key]['preds'][:,i], axis=-1)[positives]
                         for i in range(idx_map[match_idx][half_idx][boundaries_key]['preds'].shape[-1])
-                    ]).reshape((-1, idx_map[match_idx][half_idx][boundaries_key]['preds'].shape[-1]))
+                    ]).T
 
                 # Keep the score for the positive predictions only
                 if dataset.dataset_info['predict_center']:
@@ -201,6 +204,22 @@ def keyshot_selection(predictions, dataset, threshold=0.5, metrics=None):
                 else:
                     frame_idxs = idx_map[match_idx][half_idx]['ids'][positives].reshape((-1, idx_map[match_idx][half_idx][labels_key]['preds'].shape[-1]))
                     
+                # A half without positive frames has an empty prediction, but it is still evaluated: its
+                # ground-truth frames are false negatives and it takes part in the @T selection
+                if boundaries.shape[0] == 0:
+                    keyshots[match_idx][half_idx]['segment'] = np.zeros((0, 2), dtype=int)
+                    keyshots[match_idx][half_idx]['score'] = np.zeros((0, 1))
+                    keyshots[match_idx][half_idx]['ground_truth'] = np.array([[item['start'], item['end']] for item in dataset.intervals[match_idx][half_idx]]).reshape(-1, 2)
+                    keyshots[match_idx][half_idx]['scores'] = []
+                    if metrics:
+                        if dataset.dataset_info['masked']:
+                            half_info = dataset.dataset_info['games_info']['time'][match_idx][half_idx]
+                            mask = np.zeros(dataset.nframes[match_idx][half_idx])
+                            mask[half_info['start']:half_info['start']+half_info['duration']] = 1
+                            metrics, keyshots = update_metrics(keyshots, match_idx, half_idx, metrics, mask)
+                        else:
+                            metrics, keyshots = update_metrics(keyshots, match_idx, half_idx, metrics)
+
                 # When positive prediction get the segment boundaries and score
                 if boundaries.shape[0] != 0:
                     segments = (np.round(frame_idxs - np.expand_dims(boundaries[:,0], -1)).astype(int), np.round(frame_idxs + np.expand_dims(boundaries[:,1], -1)).astype(int))
@@ -505,26 +524,26 @@ def select_temporal_keyshots(keyshots, clip_segment=False):
     for match_idx in keyshots.keys():
         all_pred_segments = []
         all_pred_scores = []
+        all_pred_halves = []
         all_gt_segments = []
-        n_segments = {half_idx: 0 for half_idx in keyshots[match_idx].keys()} # Number of predicted segments per half
 
         # Accumulate all segments and scores from both halves
         for half_idx in keyshots[match_idx].keys():
             pred_segments = keyshots[match_idx][half_idx]['segment']
             pred_scores = keyshots[match_idx][half_idx]['score']
 
-            # Avoid empty representations
-            if not 'ground_truth' in keyshots[match_idx][half_idx].keys() or len(pred_segments) == 2:
+            # Skip only the halves that were never evaluated (initial placeholder segment (0, 0)). A half with
+            # exactly two predicted segments, or with none, is a valid half and keeps its ground truth
+            if isinstance(pred_segments, tuple):
                 continue
             
             gt_segments = keyshots[match_idx][half_idx]['ground_truth']
 
             selected_keyshots[match_idx][half_idx]['ground_truth'] = gt_segments
 
-            n_segments[half_idx] = len(pred_segments)
-
             all_pred_segments.extend(pred_segments)
             all_pred_scores.extend(pred_scores)
+            all_pred_halves.extend([half_idx] * len(pred_segments))
             all_gt_segments.extend(gt_segments)
 
         # Sort indices of predictions by descending score
@@ -538,32 +557,33 @@ def select_temporal_keyshots(keyshots, clip_segment=False):
         # Total number of frames in ground truth segments
         total_gt_frames = sum(end - start + 1 for start, end in all_gt_segments)
 
-        # Select predicted segments up to the GT frame count
+        # Select predicted segments up to the GT frame count. Segments that do not fit are skipped, so the
+        # selected segments are not necessarily the first ones of the ranking: keep the index of each of them
+        selected_indices = []
         selected_pred_segments = []
         frame_accumulator = 0
 
-        for segment in sorted_pred_segments:
+        for rank, segment in enumerate(sorted_pred_segments):
             start, end = segment
             segment_length = end - start + 1
 
             if frame_accumulator + segment_length <= total_gt_frames:
+                selected_indices.append(sorted_indices[rank])
                 selected_pred_segments.append(segment)
                 frame_accumulator += segment_length
             elif clip_segment:
                 # Clip last segment if needed
                 remaining_frames = total_gt_frames - frame_accumulator
                 if remaining_frames > 0:
+                    selected_indices.append(sorted_indices[rank])
                     selected_pred_segments.append((start, start + remaining_frames - 1))
                 break
 
-        # Use sorted indices to find which half each selected segment belongs to
-        clipped_sorted_indices = sorted_indices[:len(selected_pred_segments)]
-        
-        for idx in clipped_sorted_indices:
-            # If idx is less than number of segments from half 1, it's from half 1
-            half_idx = 1 if idx < n_segments[1] else 2
+        # Each selected segment is returned under the half it was predicted in
+        for idx, segment in zip(selected_indices, selected_pred_segments):
+            half_idx = all_pred_halves[idx]
 
-            selected_keyshots[match_idx][half_idx]['segment'].append(all_pred_segments[idx])
+            selected_keyshots[match_idx][half_idx]['segment'].append(segment)
             selected_keyshots[match_idx][half_idx]['score'].append(all_pred_scores[idx])
  
     return selected_keyshots
@@ -663,7 +683,9 @@ def compute_shot_mAP(keyshots, nframes):
             scores = keyshots[match_idx][half_idx]['scores']
             ground_truth = keyshots[match_idx][half_idx]['ground_truth']
             
-            if not scores:
+            # Halves never evaluated (initial placeholder) are skipped; a half without predictions still
+            # contributes its ground-truth frames, with score 0
+            if isinstance(segments, tuple):
                 continue
 
             for gt in ground_truth:
